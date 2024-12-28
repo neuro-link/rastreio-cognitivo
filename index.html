@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes de Rastreio Cognitivo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        /* Container das abas */
+        .tab-container {
+            display: flex;
+            border-bottom: 2px solid #1976D2;
+        }
+
+        /* Estilização das abas */
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: 1px solid #ccc;
+            border-bottom: none;
+            background-color: #e0e0e0;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .tab:hover {
+            background-color: #d0d0d0;
+        }
+
+        .tab.active {
+            background-color: #ffffff;
+            border-top: 2px solid #1976D2;
+        }
+
+        /* Conteúdo das abas */
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background-color: #1976D2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .patient-info {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 0px;
+            margin-bottom: 30px;
+            border-left: 5px solid #20558A;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .patient-info h2 {
+            font-size: 2.0em; /* Aumenta o tamanho da fonte */
+            text-align: center; /* Alinha o texto ao centro */
+            font-weight: bold; /* Opcional: deixa o título mais destacado */
+            margin-bottom: 20px; /* Opcional: aumenta o espaçamento abaixo do título */
+        }
+
+        .patient-info input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            width: 100%;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .small-input {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .test-item {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 0px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .test-item h3, .results h3 {
+            color: #000;
+            margin-top: 0;
+            border-bottom: 2px solid #20558A;
+            padding-bottom: 10px;
+        }
+
+        .instruction-box {
+            background-color: #E7F0F9;
+            border-left: 4px solid #20558A;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
+            font-size: 0.85em
+        }
+
+        .total-score {
+            background-color: #1976D2;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.2em;
+        }
+
+    .test-item {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 0px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .test-item button, {
+        background-color: #20558A;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .test-item button:hover {
+        background-color: #20558A;
+    }
+
+    .test-item p {
+        font-size: 1.2em;
+        color: #333;
+        margin-top: 10px;
+    }
+
+    button {
+        background-color: #20558A; /* Cor de fundo */
+        color: white; /* Cor do texto */
+        padding: 10px 20px; /* Espaçamento interno */
+        border: none; /* Sem bordas */
+        border-radius: none; /* Bordas arredondadas */
+        cursor: pointer; /* Indicador de botão ao passar o mouse */
+        font-size: 1em; /* Tamanho da fonte */
+        transition: background-color 0.3s; /* Suavização da troca de cor */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+    }
+
+#timer {
+    font-family: 'DS-Digital', 'Courier New', monospace; /* Fonte monoespaçada */
+    font-size: 3rem; /* Tamanho grande para visibilidade */
+    color: #000; /* Cor preta */
+    width: 210px; /* Largura fixa */
+    text-align: center; /* Alinhamento horizontal */
+    white-space: nowrap; /* Garante que o texto não quebre */
+    letter-spacing: 2px; /* Espaçamento uniforme entre caracteres */
+    border: 1px solid #ccc; /* Bordas para o cronômetro */
+    padding: 10px; /* Espaçamento interno */
+    border-radius: none;
+    background-color: #fff; /* Fundo branco */
+    line-height: 1; /* Altura da linha */
+    overflow: hidden; /* Evita estouros */
+}
+
+#cronometro {
+    display: flex; /* Flexbox para alinhar conteúdo interno */
+    flex-direction: column; /* Organiza os elementos em coluna */
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center; /* Centraliza horizontalmente */
+    background-color: #B1E4B3; /* Fundo branco */
+    color: #000; /* Cor preta */
+    padding: 20px; /* Espaçamento interno */
+    border-radius: none;
+    text-align: center; /* Alinha o texto no centro */
+    border: 2px solid #333; /* Borda externa */
+    font-family: 'DS-Digital', 'Courier New', monospace; /* Fonte digital */
+}
+
+/* Estilo para os dígitos */
+.digit {
+    font-family: 'DS-Digital', 'Courier New', monospace; /* Fonte monoespaçada */
+    font-size: 3rem; /* Tamanho grande */
+    color: #000; /* Cor preta */
+    width: 30px; /* Largura fixa para cada dígito */
+    text-align: center; /* Centraliza o texto */
+}
+
+/* Estilo para os separadores */
+.separator {
+    font-family: 'DS-Digital', 'Courier New', monospace;
+    font-size: 3rem;
+    color: #000;
+    width: 10px; /* Largura menor para os separadores */
+    text-align: center;
+}
+
+
+    /* Mantém os botões com o mesmo layout no desktop e no mobile */
+    .button-container button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 0;
+        background-color: #20558A;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .button-container button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Estilo específico para telas menores */
+    @media (max-width: 768px) {
+        .header-title img {
+            content: url('titulo-mobile.png'); /* Substitua pelo caminho da imagem para smartphones */
+        }
+
+        /* Ajusta os botões para ocupar toda a largura no mobile */
+        .button-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .button-container button {
+            width: 100%; /* Botões ocupam toda a largura no mobile */
+        }
+    }
+    </style>
+</head>
+<body>
+
+<div class="patient-info">
+    <h2>Testes de Rastreio Cognitivo</h2>
+    <div class="flex-container">
+        <div class="small-input">
+            <label for="nomePaciente">Nome:</label>
+            <input type="text" id="nomePaciente" placeholder="Nome do Paciente">
+        </div>
+        <div class="small-input">
+            <label for="prontuario">Prontuário:</label>
+            <input type="text" id="prontuario" placeholder="Número do Prontuário">
+        </div>
+    </div>
+    <div class="flex-container">
+        <div class="small-input">
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" id="dataNascimento" onchange="calculaIdade()">
+        </div>
+        <div class="small-input">
+            <label for="escolaridade">Escolaridade:</label>
+            <input type="text" id="escolaridade" placeholder="Escolaridade">
+        </div>
+    </div>
+</div>
+
+    <!-- Navegação das Abas -->
+    <div class="tab-container">
+        <div class="tab active" onclick="openTab('tab1')">MEEM</div>
+        <div class="tab" onclick="openTab('tab2')">Teste de Memória de Figuras</div>
+        <div class="tab" onclick="openTab('tab3')">Testes de Fluência</div>
+        <div class="tab" onclick="openTab('tab4')">Teste do Relógio</div>
+    </div>
+
+    <!-- Conteúdo da primeira aba -->
+    <div id="tab1" class="tab-content active">
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEEM</title>
+</head>
+<body>
+
+    <!-- Cabeçalho da Escala -->
+    <div class="header-title">
+        <h2>Miniexame do Estado Mental</h2>
+    </div>
+
+        <form id="meemForm">
+            <!-- Questões do MEEM -->
+            <div class="test-item">
+                <h3>1. Orientação temporal (0 a 5 pontos)</h3>
+                    <div class="instruction-box">
+                    <p><strong>INSTRUÇÃO:</strong> Pergunte ao paciente:</p>
+                    </div> 
+                <label><input type="checkbox" name="q1" value="1" data-label="Dia do mês"> Que dia é hoje?</label><br>
+                <label><input type="checkbox" name="q1" value="1" data-label="Mês"> Em que mês estamos?</label><br>
+                <label><input type="checkbox" name="q1" value="1" data-label="Ano"> Em que ano estamos?</label><br>
+                <label><input type="checkbox" name="q1" value="1" data-label="Dia da semana"> Em que dia da semana estamos?</label><br>
+                <label><input type="checkbox" name="q1" value="1" data-label="Hora aproximada"> Qual a hora aproximada? (considere a variação de mais ou menos uma hora)</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>2. Orientação espacial (0 a 5 pontos)</h3>
+                    <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Pergunte ao indivíduo:</p>
+                    </div>
+                <label><input type="checkbox" name="q2" value="1" data-label="Local específico"> Em que local nós estamos? (consultório, dormitório, sala - apontando para o chão)</label><br>
+                <label><input type="checkbox" name="q2" value="1" data-label="Instituição"> Que local é este aqui? (apontando ao redor num sentido mais amplo: hospital, casa de repouso, própria casa)</label><br>
+                <label><input type="checkbox" name="q2" value="1" data-label="Bairro ou rua próxima"> Em que bairro nós estamos ou qual o nome de uma rua próxima?</label><br>
+                <label><input type="checkbox" name="q2" value="1" data-label="Cidade">  Em que cidade nós estamos?</label><br>
+                <label><input type="checkbox" name="q2" value="1" data-label="Estado"> Em que Estado nós estamos?</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>3. Memória imediata (0 a 3 pontos)</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Diga três palavras ao paciente (ex.: Vaso, Carro, Tijolo). Ele deve repetir imediatamente. Dê 1 ponto para cada palavra repetida na primeira vez.</p>
+                </div>
+                <label><input type="checkbox" name="q3" value="1" data-label="Vaso"> Vaso</label><br>
+                <label><input type="checkbox" name="q3" value="1" data-label="Carro"> Carro</label><br>
+                <label><input type="checkbox" name="q3" value="1" data-label="Tijolo"> Tijolo</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>4. Atenção e cálculo (0 a 5 pontos)</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong>Solicite ao paciente que realize subtrações seriadas de 7 a partir de 100 (ex.: 93, 86, 79, 72, 65). Se houver erro, corrija-o e prossiga. Considere correto se o examinado espontaneamente se autocorrigir.</p>
+                </div>
+                <label><input type="checkbox" name="q4" value="1" data-label="93"> 93</label><br>
+                <label><input type="checkbox" name="q4" value="1" data-label="86"> 86</label><br>
+                <label><input type="checkbox" name="q4" value="1" data-label="79"> 79</label><br>
+                <label><input type="checkbox" name="q4" value="1" data-label="72"> 72</label><br>
+                <label><input type="checkbox" name="q4" value="1" data-label="65"> 65</label><br>
+            </div>
+            
+            <div class="test-item">
+                <h3>5. Evocação (0 a 3 pontos)</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Peça ao paciente para recordar as três palavras ditas anteriormente (ex.: Vaso, Carro, Tijolo). Cada palavra correta vale 1 ponto.</p>
+                </div>
+                <label><input type="checkbox" name="q5" value="1" data-label="Vaso"> Vaso</label><br>
+                <label><input type="checkbox" name="q5" value="1" data-label="Carro"> Carro</label><br>
+                <label><input type="checkbox" name="q5" value="1" data-label="Tijolo"> Tijolo</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>6. Nomeação: 0 a 2 pontos</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Peça para o paciente nomear os objetos mostrados (ex.:relógio, caneta).</p>
+                </div>
+                <label><input type="checkbox" name="q6" value="1" data-label="Relógio"> Relógio</label><br>
+                <label><input type="checkbox" name="q6" value="1" data-label="Caneta"> Caneta</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>7. Repetição: 0 a 1 ponto</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Certifique-se de que o paciente esteja atento ao comando. Então, diga que vai falar uma frase e quer que ele repita logo em seguida: "Nem aqui, nem ali, nem lá". Considere somente se a repetição for perfeita.</p>
+                </div>
+                <label><input type="checkbox" name="q7" value="1" data-label="Repetir frase"> Repetir: "Nem aqui, nem ali, nem lá"</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>8. Comandos: 0 a 3 pontos</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Dê o seguinte comando ao paciente: Pegue este papel com a mão direita (1 ponto), dobre-o ao meio (1 ponto) e coloque-o no chão (1 ponto). Se o paciente pedir ajuda no meio da tarefa <strong>não dê dicas</strong>.</p>
+                </div>
+                <label><input type="checkbox" name="q8" value="1" data-label="Comando 1"> Pega o papel com a mão direita</label><br>
+                <label><input type="checkbox" name="q8" value="1" data-label="Comando 2"> Dobra o papel ao meio</label><br>
+                <label><input type="checkbox" name="q8" value="1" data-label="Comando 3"> Coloca o papel no chão</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>9. Leitura: 0 a 1 ponto</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Mostre a frase escrita "FECHE OS OLHOS" e peça para o paciente fazer o que está sendo mandado. <strong>Não auxilie se pedir ajuda ou se só ler a frase sem realizar o comando</strong>.</p>
+                </div>
+                <label><input type="checkbox" name="q9" value="1" data-label="Feche os olhos"> Lê e fecha os olhos</label><br>
+            </div>
+
+            <div class="test-item">
+                <h3>10. Escrita (0 a 1 ponto)</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Peça ao paciente para escrever uma frase. Se não compreender o significado, ajude com: alguma frase que tenha começo, meio e fim; alguma coisa que aconteceu hoje; alguma coisa que queira dizer. Para a correção não são considerados erros gramaticais ou ortográficos.</p>
+                </div>
+                <label><input type="checkbox" name="q10" value="1" data-label="Frase completa"> Escreve frase completa</label>
+            </div>
+
+            <div class="test-item">
+                <h3>11. Visuoespacial (0 a 1 ponto)</h3>
+                <div class="instruction-box">
+                <p><strong>INSTRUÇÃO:</strong> Mostre o modelo e peça ao paciente para fazer o melhor possível. Considere apenas se houver 2 pentágonos interseccionados formando uma figura de quatro lados.</p>
+                </div>
+                <label><input type="checkbox" name="q11" value="1" data-label="Copiar figura"> Copiar figura</label>
+                <img src="https://imgur.com/RIzVXOM.png" alt="Figura dos pentágonos" style="max-width: 300px; height: auto; margin-top: 10px;">
+            </div>
+
+            <!-- Resultados -->
+            <div class="test-item results">
+                <h3>Resultados</h3>
+                <button type="button" onclick="calculateScore()">Calcular Pontuação</button>
+                <p id="totalScore"></p>
+            </div>
+
+            <!-- Botões de ação -->
+            <div class="action-buttons">
+                <button type="button" onclick="resetForm()">Resetar Formulário</button>
+                <button type="button" onclick="window.print()">Imprimir</button>
+            </div>
+        </form>
+
+        <div class="summary" id="summary">
+            <h3>Resumo de Campos Não Pontuados:</h3>
+            <div id="summaryContent"></div>
+        </div>
+    </div>
+
+    <script>
+    function calculateScore() {
+        const form = document.getElementById('meemForm'); // Obtém o formulário
+        const totalScoreElement = document.getElementById('totalScore'); // Elemento onde a pontuação será exibida
+        const summaryContent = document.getElementById('summaryContent'); // Resumo dos campos não pontuados
+
+        let totalScore = 0; // Inicializa a pontuação total
+        const maxScores = { // Pontuações máximas para cada questão
+            q1: 5,
+            q2: 5,
+            q3: 3,
+            q4: 5,
+            q5: 3,
+            q6: 2,
+            q7: 1,
+            q8: 3,
+            q9: 1,
+            q10: 1,
+            q11: 1
+        };
+
+        const missedPoints = {}; // Objeto para armazenar pontos perdidos por questão
+        const missedFields = {}; // Campos não pontuados detalhados
+
+        // Processa cada questão
+        Object.keys(maxScores).forEach((key) => {
+            const checkboxes = form.querySelectorAll(`input[name="${key}"]`);
+            let questionScore = 0; // Pontuação atual da questão
+            missedFields[key] = []; // Inicializa os campos não pontuados para esta questão
+
+            checkboxes.forEach((checkbox) => {
+                if (checkbox.checked) {
+                    questionScore += parseInt(checkbox.value, 10); // Soma a pontuação
+                } else {
+                    missedFields[key].push(checkbox.getAttribute('data-label')); // Adiciona os campos não preenchidos
+                }
+            });
+
+            // Calcula os pontos perdidos para a questão
+            missedPoints[key] = maxScores[key] - questionScore;
+            totalScore += questionScore; // Adiciona a pontuação da questão ao total
+        });
+
+        // Formata a pontuação total e os campos onde houve perda de pontos
+        const details = Object.entries(missedPoints)
+            .filter(([_, lost]) => lost > 0) // Filtra apenas as questões com pontos perdidos
+            .map(([key, lost]) => {
+                const title = {
+                    q1: 'orientação temporal',
+                    q2: 'orientação espacial',
+                    q3: 'memória imediata',
+                    q4: 'cálculo',
+                    q5: 'evocação',
+                    q6: 'nomeação',
+                    q7: 'repetição',
+                    q8: 'comandos',
+                    q9: 'leitura',
+                    q10: 'escrita',
+                    q11: 'visuoespacial'
+                }[key];
+                return `${title} -${lost}`; // Formata como "título -n"
+            })
+            .join('; '); // Une os itens com ponto e vírgula
+
+        // Exibe a pontuação total e os detalhes
+        totalScoreElement.innerText = `Total: ${totalScore}/30 (${details})`;
+
+        // Exibe os campos não pontuados no resumo
+        summaryContent.innerHTML = ''; // Limpa o conteúdo anterior
+        Object.entries(missedFields).forEach(([key, items]) => {
+            if (items.length > 0) {
+                const p = document.createElement('p');
+                p.innerHTML = `<strong>${key.toUpperCase()}:</strong> ${items.join(', ')}`;
+                summaryContent.appendChild(p);
+            }
+        });
+    }
+
+    function resetForm() {
+        // Reseta o formulário e limpa os resultados
+        const form = document.getElementById('meemForm');
+        form.reset();
+        document.getElementById('totalScore').innerText = '';
+        document.getElementById('summaryContent').innerHTML = '';
+    }
+    </script>
+</body>
+</html>
+
+    </div>
+
+    <!-- Conteúdo da segunda aba -->
+<div id="tab2" class="tab-content">
+    <div class="header-title">
+        <h2>Teste de Memória de Figuras</h2>
+    </div>
+
+    <!-- Item 1 -->
+    <div class="test-item">
+        <h3>Percepção visual e nomeação</h3>
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> São apresentadas 10 figuras, perguntando: “Que figuras são estas?” O escore é dado pelo número de figuras corretamente identificadas, mesmo que não tenham sido adequadamente nomeadas. Se não tiver identificado alguma figura, explique ou represente.</p> 
+        </div>
+        Número de figuras identificadas:
+        <input type="number" id="scoreIdentificacao" name="scoreIdentificacao" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;"><br>
+        Número de figuras nomeadas corretamente:
+        <input type="number" id="scoreNomeacao" name="scoreNomeacao" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;"><br>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="test-item">
+        <h3>Memória incidental</h3>
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> Esconda a folha e pergunte: “Que figuras eu lhe mostrei?” O tempo máximo de evocação é de 60 segundos. O escore é dado pelo número de respostas certas (memória incidental).</p>
+        </div>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Sapato</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Casa</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Pente</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Chave</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Avião</label><br>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Tartaruga</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Balde</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Livro</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Colher</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Árvore</label><br>
+        <br>Memória incidental:
+        <input type="number" id="scoreMemoriaIncidental" name="scoreMemoriaIncidental" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;" readonly>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="test-item">
+        <h3>Memória Imediata</h3>
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> Mostre novamente as figuras durante 30 segundos, dizendo: “olhe bem e procure memorizar estas figuras”. Esconda as figuras e pergunte: “que figuras eu acabei de lhe mostrar?”.</p>
+        </div>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Sapato</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Casa</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Pente</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Chave</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Avião</label><br>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Tartaruga</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Balde</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Livro</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Colher</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Árvore</label><br>
+        <br>Memória imediata:
+        <input type="number" id="scoreMemoriaImediata" name="scoreMemoriaImediata" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;" readonly>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="test-item">
+        <h3>Aprendizagem</h3>
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> Mostre novamente as figuras durante 30 segundos, dizendo: “olhe bem e procure memorizar estas figuras”. Pergunte novamente sobre as figuras.</p>
+        </div>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Sapato</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Casa</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Pente</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Chave</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Avião</label><br>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Tartaruga</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Balde</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Livro</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Colher</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Árvore</label><br>
+        <br>Aprendizagem:
+        <input type="number" id="scoreAprendizagem" name="scoreAprendizagem" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;" readonly>
+    </div>
+
+    <div class="test-item">
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> Ao final das etapas anteriores, realize uma tarefa distratora, que pode ser outro teste cognitivo ou outras etapas do exame físico. A distração deve durar, pelo menos, 5 minutos.</p>
+        </div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="test-item">
+        <h3>Evocação</h3>
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> Retome o teste e pergunte: “quais as figuras eu há 5 minutos?” O escore é dado pelo número de respostas corretas.</p>
+        </div>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Sapato</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Casa</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Pente</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Chave</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Avião</label><br>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Tartaruga</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Balde</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Livro</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Colher</label>
+        <label><input type="checkbox" class="memoria-checkbox" value="1"> Árvore</label><br>
+        <br>Evocação:
+        <input type="number" id="scoreEvocacao" name="scoreEvocacao" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;" readonly>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="test-item">
+        <h3>Reconhecimento de figuras</h3>
+        <div class="instruction-box">
+            <p><strong>INSTRUÇÃO:</strong> Avalie o reconhecimento das figuras. A pontuação final é dada pelo total de figuras reconhecidas menos intrusões.</p>
+        </div>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Sapato</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Casa</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Pente</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Chave</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Avião</label><br>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Tartaruga</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Balde</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Livro</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Colher</label>
+        <label><input type="checkbox" class="reconhecimento-checkbox" value="1"> Árvore</label><br>
+        <br>Figuras reconhecidas:
+        <input type="number" id="figurasReconhecidas" readonly style="width: 60px;" placeholder="0-10">
+        <br>Intrusões:
+        <input type="number" id="intrusoes" min="0" max="10" step="1" placeholder="0-10" style="width: 60px;">
+    </div>
+
+    <div class="test-item">
+        <h3>Resultados:</h3>
+        <button type="button" onclick="exibirResultados()">Exibir Resultados</button>
+        <div id="resultados" style="margin-top: 20px;"></div>
+    </div>
+
+<!-- Cronômetro Digital com Blocos Fixos -->
+<div id="cronometro" style="position: fixed; bottom: 20px; right: 20px; background-color: #fff; color: #000; padding: 20px; border-radius: none; text-align: center; border: 2px solid #333;">
+    <div id="timer" style="display: flex; justify-content: center; align-items: center; gap: 5px;">
+        <span class="digit">0</span>
+        <span class="digit">0</span>
+        <span class="separator">:</span>
+        <span class="digit">0</span>
+        <span class="digit">0</span>
+        <span class="separator">.</span>
+        <span class="digit">0</span>
+        <span class="digit">0</span>
+    </div>
+    <div style="margin-top: 10px;">
+        <button id="startTimer" class="button-standard">Iniciar</button>
+        <button id="stopTimer" class="button-standard">Parar</button>
+        <button id="resetTimer" class="button-standard">Reiniciar</button>
+    </div>
+</div>
+
+<link href="https://fonts.cdnfonts.com/css/ds-digital" rel="stylesheet">
+</div>
+
+<script>
+// Atualiza a pontuação dos itens 1 a 5
+function atualizarPontuacaoGeral() {
+    document.querySelectorAll('.test-item').forEach((item) => {
+        const checkboxes = item.querySelectorAll('.memoria-checkbox');
+        const scoreInput = item.querySelector('input[readonly]');
+        if (checkboxes.length && scoreInput) {
+            let total = 0;
+            checkboxes.forEach((cb) => (total += cb.checked ? parseInt(cb.value, 10) : 0));
+            scoreInput.value = total;
+        }
+    });
+}
+
+// Atualiza "Figuras Reconhecidas" no item 6
+function atualizarFigurasReconhecidas() {
+    const checkboxes = document.querySelectorAll('.reconhecimento-checkbox');
+    const figurasReconhecidasInput = document.getElementById('figurasReconhecidas');
+    let total = 0;
+    checkboxes.forEach((cb) => (total += cb.checked ? parseInt(cb.value, 10) : 0));
+    figurasReconhecidasInput.value = total;
+}
+
+// Eventos
+document.querySelectorAll('.memoria-checkbox').forEach((cb) => cb.addEventListener('change', atualizarPontuacaoGeral));
+document.querySelectorAll('.reconhecimento-checkbox').forEach((cb) => cb.addEventListener('change', atualizarFigurasReconhecidas));
+
+// Inicialização
+atualizarPontuacaoGeral();
+atualizarFigurasReconhecidas();
+
+// Função para exibir os resultados no formato solicitado
+function exibirResultados() {
+    const resultadosDiv = document.getElementById('resultados'); // Div para exibir resultados
+    resultadosDiv.innerHTML = ''; // Limpa resultados anteriores
+
+    const itensResultados = [];
+
+    // Captura os resultados dos itens de forma específica
+    const tab = document.getElementById('tab2');
+
+    // Item 1: Percepção visual e nomeação
+    const identificacao = parseInt(document.getElementById('scoreIdentificacao').value, 10) || 0;
+    const nomeacao = parseInt(document.getElementById('scoreNomeacao').value, 10) || 0;
+    itensResultados.push(`percepção visual ${identificacao}/10; nomeação: ${nomeacao}/10`);
+
+    // Item 2: Memória incidental
+    const memoriaIncidental = parseInt(document.getElementById('scoreMemoriaIncidental').value, 10) || 0;
+    itensResultados.push(`memória incidental: ${memoriaIncidental}/10`);
+
+    // Item 3: Memória imediata
+    const memoriaImediata = parseInt(document.getElementById('scoreMemoriaImediata').value, 10) || 0;
+    itensResultados.push(`memória imediata: ${memoriaImediata}/10`);
+
+    // Item 4: Aprendizagem
+    const aprendizagem = parseInt(document.getElementById('scoreAprendizagem').value, 10) || 0;
+    itensResultados.push(`aprendizagem: ${aprendizagem}/10`);
+
+    // Item 5: Evocação
+    const evocacao = parseInt(document.getElementById('scoreEvocacao').value, 10) || 0;
+    itensResultados.push(`evocação: ${evocacao}/10`);
+
+    // Item 6: Reconhecimento de Figuras
+    const figurasReconhecidas = parseInt(document.getElementById('figurasReconhecidas').value, 10) || 0;
+    const intrusoes = parseInt(document.getElementById('intrusoes').value, 10) || 0;
+    const totalReconhecimento = figurasReconhecidas - intrusoes;
+    itensResultados.push(`reconhecimento de figuras: ${totalReconhecimento}/10 (reconhecidas: ${figurasReconhecidas}; intrusões: ${intrusoes})`);
+
+    // Adiciona o título e exibe os resultados formatados
+    const resultadosTexto = `Teste de Memória de Figuras: ${itensResultados.join('; ')}`;
+    const p = document.createElement('p');
+    p.innerText = resultadosTexto;
+    resultadosDiv.appendChild(p);
+}
+
+// Adiciona o evento ao botão de exibir resultados
+document.querySelector('button[onclick="exibirResultados()"]').addEventListener('click', exibirResultados);
+
+// Cronômetro Digital com Blocos Fixos
+let timerInterval;
+let totalMilliseconds = 0;
+
+// Atualiza os blocos do cronômetro
+function updateTimerDisplay() {
+    const totalSeconds = Math.floor(totalMilliseconds / 1000);
+    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+    const seconds = String(totalSeconds % 60).padStart(2, '0');
+    const centiseconds = String(Math.floor((totalMilliseconds % 1000) / 10)).padStart(2, '0');
+
+    // Atualiza cada bloco do cronômetro
+    document.querySelectorAll('#timer .digit')[0].innerText = minutes[0];
+    document.querySelectorAll('#timer .digit')[1].innerText = minutes[1];
+    document.querySelectorAll('#timer .digit')[2].innerText = seconds[0];
+    document.querySelectorAll('#timer .digit')[3].innerText = seconds[1];
+    document.querySelectorAll('#timer .digit')[4].innerText = centiseconds[0];
+    document.querySelectorAll('#timer .digit')[5].innerText = centiseconds[1];
+}
+
+// Inicia o cronômetro
+document.getElementById('startTimer').addEventListener('click', () => {
+    if (!timerInterval) {
+        timerInterval = setInterval(() => {
+            totalMilliseconds += 10; // Incrementa em centésimos de segundo
+            updateTimerDisplay();
+        }, 10);
+    }
+});
+
+// Para o cronômetro
+document.getElementById('stopTimer').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+});
+
+// Reinicia o cronômetro
+document.getElementById('resetTimer').addEventListener('click', () => {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    totalMilliseconds = 0;
+    updateTimerDisplay();
+});
+
+</script>
+
+
+    <!-- Script para alternar abas -->
+    <script>
+        function openTab(tabId) {
+            // Remove a classe "active" de todas as abas e conteúdos
+            const tabs = document.querySelectorAll('.tab');
+            const contents = document.querySelectorAll('.tab-content');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Adiciona "active" apenas à aba e ao conteúdo selecionado
+            document.querySelector(`.tab[onclick="openTab('${tabId}')"]`).classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+
+<footer style="background-color: #f5f5f5; text-align: center; padding: 15px; margin-top: 30px; font-size: 0.9em; color: #555; border-top: 1px solid #ddd;">
+    <p>HTML Desenvolvido por <strong>Welton Cardoso</strong> e <strong>Gustavo Carvalho</strong> com base no protocolo MEEM.<br>
+Neurologia - Hospital das Clínicas da UFMG</p>
+    <p>Fonte: Brucki, S. M.; Nitrini, R.; Caramelli, P.; Bertolucci, P. H. et al. Sugestões para o uso do Mini-Exame do Estado Mental no Brasil. Arq Neuropsiquiatr., 61, p. 777-781, 2003.</p>
+</footer>
+
+</body>
+</html>
+
