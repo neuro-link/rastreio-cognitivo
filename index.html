@@ -667,6 +667,7 @@
         <h3>Resultados:</h3>
         <button type="button" onclick="exibirResultados()">Exibir Resultados</button>
         <div id="resultados" style="margin-top: 20px;"></div>
+        <p>identificação: <span id="identificacao"></span>; nomeação: <span id="nomeacao"></span>; memória incidental: <span id="memoriaIncidental"></span>; memória imediata: <span id="memoriaImediata"></span>; aprendizado: <span id="aprendizado"></span>; memória tardia: <span id="memoriaTardia"></span>; reconhecimento: <span id="reconhecimento"></span> (intrusões: <span id="intrusoes"></span>)</p>
         <table id="tabelaResultados" style="width: 100%; border-collapse: collapse; margin-top: 10px;">
             <thead>
                 <tr style="background-color: #f0f0f0; text-align: center;">
@@ -887,6 +888,25 @@ function atualizarTabelaResultados() {
 // Atualiza a tabela ao clicar no botão de exibir resultados
 document.querySelector('button[onclick="exibirResultados()"]').addEventListener('click', atualizarTabelaResultados);
 
+  // Supondo que as pontuações sejam armazenadas em variáveis correspondentes
+  var identificacao = 5;
+  var nomeacao = 4;
+  var memoriaIncidental = 3;
+  var memoriaImediata = 4;
+  var aprendizado = 5;
+  var memoriaTardia = 3;
+  var reconhecimento = 4;
+  var intrusoes = 1;
+
+  // Atribuindo as pontuações aos elementos HTML
+  document.getElementById('identificacao').textContent = identificacao;
+  document.getElementById('nomeacao').textContent = nomeacao;
+  document.getElementById('memoriaIncidental').textContent = memoriaIncidental;
+  document.getElementById('memoriaImediata').textContent = memoriaImediata;
+  document.getElementById('aprendizado').textContent = aprendizado;
+  document.getElementById('memoriaTardia').textContent = memoriaTardia;
+  document.getElementById('reconhecimento').textContent = reconhecimento;
+  document.getElementById('intrusoes').textContent = intrusoes;
 </script>
 
 <!-- Conteúdo da terceira aba -->
