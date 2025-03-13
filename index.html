@@ -912,6 +912,9 @@ document.querySelector('button[onclick="exibirResultados()"]').addEventListener(
         </p>
       `;
   }
+
+      // Espera a aba do Teste de Memória de Figuras ser carregada para atualizar os resultados
+  document.addEventListener("DOMContentLoaded", atualizarResultados);
 </script>
 
 <!-- Conteúdo da terceira aba -->
