@@ -887,25 +887,31 @@ function atualizarTabelaResultados() {
 // Atualiza a tabela ao clicar no botão de exibir resultados
 document.querySelector('button[onclick="exibirResultados()"]').addEventListener('click', atualizarTabelaResultados);
 
-  // Supondo que as pontuações sejam armazenadas em variáveis correspondentes
-  var identificacao = 5;
-  var nomeacao = 4;
-  var memoriaIncidental = 3;
-  var memoriaImediata = 4;
-  var aprendizado = 5;
-  var memoriaTardia = 3;
-  var reconhecimento = 4;
-  var intrusoes = 1;
-    
-  // Atribuindo as pontuações aos elementos HTML
-  document.getElementById('identificacao').textContent = identificacao;
-  document.getElementById('nomeacao').textContent = nomeacao;
-  document.getElementById('memoriaIncidental').textContent = memoriaIncidental;
-  document.getElementById('memoriaImediata').textContent = memoriaImediata;
-  document.getElementById('aprendizado').textContent = aprendizado;
-  document.getElementById('memoriaTardia').textContent = memoriaTardia;
-  document.getElementById('reconhecimento').textContent = reconhecimento;
-  document.getElementById('intrusoes').textContent = intrusoes;
+  function atualizarResultados() {
+      // Localiza os elementos na tabela de referência ou no formulário do teste
+      let identificacao = document.querySelector("#id_identificacao")?.textContent || "N/A";
+      let nomeacao = document.querySelector("#id_nomeacao")?.textContent || "N/A";
+      let memoriaIncidental = document.querySelector("#id_memoria_incidental")?.textContent || "N/A";
+      let memoriaImediata = document.querySelector("#id_memoria_imediata")?.textContent || "N/A";
+      let aprendizado = document.querySelector("#id_aprendizado")?.textContent || "N/A";
+      let memoriaTardia = document.querySelector("#id_memoria_tardia")?.textContent || "N/A";
+      let reconhecimento = document.querySelector("#id_reconhecimento")?.textContent || "N/A";
+      let intrusoes = document.querySelector("#id_intrusoes")?.textContent || "N/A";
+
+      // Exibir os valores coletados
+      document.getElementById("resultados").innerHTML = `
+        <p>
+          <strong>Identificação:</strong> ${identificacao}; 
+          <strong>Nomeação:</strong> ${nomeacao}; 
+          <strong>Memória Incidental:</strong> ${memoriaIncidental}; 
+          <strong>Memória Imediata:</strong> ${memoriaImediata}; 
+          <strong>Aprendizado:</strong> ${aprendizado}; 
+          <strong>Memória Tardia:</strong> ${memoriaTardia}; 
+          <strong>Reconhecimento:</strong> ${reconhecimento} 
+          (<strong>Intrusões:</strong> ${intrusoes})
+        </p>
+      `;
+  }
 </script>
 
 <!-- Conteúdo da terceira aba -->
